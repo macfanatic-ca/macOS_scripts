@@ -2,11 +2,11 @@
 ################################################################################
 ## Script Author:		Mike Morales, @mm2270 on JAMFNation
 ## Modify by:			Jon Yergatian
-## Last Update:			2016-07-11
+## Last Update:			2016-07-21
 ## Changes:				Modified for use @ Macfanatic
 ################################################################################
 ##	Path to cocoaDialog (customize to your own location)
-cdPath="/Library/Application Support/JAMF/bin/cocoaDialog.app/Contents/MacOS/cocoaDialog"
+cdPath="/Library/Macfanatic/bin/cocoaDialog.app/Contents/MacOS/cocoaDialog"
 
 ##	Quick sanity check to make sure cocoaDialog is installed in the path specified
 if [ ! -e "$cdPath" ]; then
@@ -50,11 +50,11 @@ fi
 ##	Start - Check Casper Suite script parameters and assign any that were passed to the script
 
 ##	PARAMETER 4: Set the Organization/Department/Division name. Used in dialog titles
-##	Default string of "Managed" is used if no script parameter is passed
+##	Default string of "Macfanatic" is used if no script parameter is passed
 if [[ "$4" != "" ]]; then
 	orgName="$4"
 else
-	orgName="Managed"
+	orgName="Macfanatic"
 fi
 
 ##	PARAMETER 5: Set to "no" (case insensitive) to show a single progress bar update for all installations.
@@ -72,45 +72,45 @@ else
 fi
 
 ##	PARAMETER 6: Set the number of minutes until reboot (only used if installations require it)
-##	Default value of 5 minutes is assigned if no script parameter is passed
+##	Default value of 3 minutes is assigned if no script parameter is passed
 ##	Special note: Only full integers can be used. No decimals.
-##	If the script detects a non whole integer, it will fall back on the default 5 minute setting.
+##	If the script detects a non whole integer, it will fall back on the default 3 minute setting.
 if [[ "$6" != "" ]]; then
 	## Run test to make sure we have a non floating point integer
 	if [[ $(expr "$6" / "$6") == "1" ]]; then
 		minToRestart="$6"
 	else
-		echo "Non integer, or a decimal value was passed. Setting reboot time to default (5 minutes)"
-		minToRestart="5"
+		echo "Non integer, or a decimal value was passed. Setting reboot time to default (3 minutes)"
+		minToRestart="3"
 	fi
 else
-	minToRestart="5"
+	minToRestart="3"
 fi
 
 ##	Parameter 7: Set to the full path of an icon or image file for any dialogs that are not using the
 ##	Apple Software Update icon. This could be a company logo icon for example
 ##	Default icon is set in the following manner:
-##		If no script parameter is passed, or the icon/image can not be found and JAMF Self Service is present on the Mac, its icon will be used
-## 		If Self Service is not found, the Software Update icon will be used
+##		If no script parameter is passed, or the icon/image can not be found and Macfanatic icon is present on the Mac, its icon will be used
+## 		If Macfanatic icon is not found, the Software Update icon will be used
 if [[ "$7" != "" ]]; then
 	if [[ -e "$7" ]]; then
 		echo "A custom dialog icon was set: $7"
 		msgIcon="$7"
 	else
-		if [[ -e "/Applications/Self Service.app/Contents/Resources/Self Service.icns" ]]; then
-			##	Self Service present. Use a default Self Service icon if the file specified could not be found
-			msgIcon="/Applications/Self Service.app/Contents/Resources/Self Service.icns"
+		if [[ -e "/Library/Macfanatic/mcsicon.icns" ]]; then
+			##	Use a default Macfanatic icon if the file specified could not be found
+			msgIcon="/Library/Macfanatic/mcsicon.icns"
 		else
-			##	Icon file not found, and Self Service not present. Set icon to Software Update
+			##	Icon file not found, and Macfanatic icon not present. Set icon to Software Update
 			msgIcon="$swuIcon"
 		fi
 	fi
 else
-	if [[ -e "/Applications/Self Service.app/Contents/Resources/Self Service.icns" ]]; then
-		##	Self Service present. Use a default Self Service icon if no parameter was passed
-		msgIcon="/Applications/Self Service.app/Contents/Resources/Self Service.icns"
+	if [[ -e "/Library/Macfanatic/mcsicon.icns" ]]; then
+		##	Use a default Macfanatic icon if no parameter was passed
+		msgIcon="/Library/Macfanatic/mcsicon.icns"
 	else
-		##	No parameter passed, and Self Service not present. Set icon to Software Update
+		##	No parameter passed, and Macfanatic icon not present. Set icon to Software Update
 		msgIcon="$swuIcon"
 	fi
 fi
@@ -166,11 +166,11 @@ doneRestart ()
 
 doneMSG="Apple Software Updates have been installed, but your Mac needs to reboot to finish the process.
 
-Your Mac will automatically reboot in $minToRestart minutes. Please save any open work and close your applications now."
+Your Mac will automatically reboot in $minToRestart minutes. Please save any open documents and quit any open apps now."
 
 ##	Display initial message for 30 seconds before starting the progress bar countdown
 userSelection=$("$cdPath" msgbox \
-	--title "$orgName Software Update > Updates Complete" \
+	--title "$orgName Software Update" \
 	--text "Updates installed successfully" \
 	--informative-text "$doneMSG" \
 	--button1 "    OK    " \
@@ -428,7 +428,7 @@ LAgentCore="<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 		<string>-session</string>
 		<string>256</string>
 		<string>-msg</string>
-		<string>Apple Software Updates are being installed.  A Restart will occur when complete.</string>
+		<string>Apple Software Updates are being installed</string>
 	</array>
 </dict>
 </plist>"

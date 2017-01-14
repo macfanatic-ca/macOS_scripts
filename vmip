@@ -1,0 +1,13 @@
+#!/bin/bash
+
+vmwareApp="/Applications/VMware Fusion.app"
+
+runningVM=$("$vmwareApp"/Contents/Library/vmrun list | awk 'NR>1')
+
+for foundVM in "$runningVM"
+do
+    vmIP=$("$vmwareApp"/Contents/Library/vmrun getGuestIPAddress "$foundVM")
+    echo "$foundVM: $vmIP"
+done
+
+exit 0

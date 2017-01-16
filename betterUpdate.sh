@@ -1,3 +1,4 @@
+#!/bin/bash
 ########################## Variables ##########################
 jamfHelper='/Library/Application Support/JAMF/bin/jamfHelper.app/Contents/MacOS/jamfHelper'
 applicationTitle="$4"

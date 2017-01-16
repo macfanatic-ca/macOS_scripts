@@ -1,4 +1,4 @@
-#bin/bash
+#!/bin/bash
 
 primaryts="timeserver.local"
 secondaryts="pool.ntp.org"

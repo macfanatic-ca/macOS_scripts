@@ -11,6 +11,12 @@ wifiInterface=$(/usr/sbin/networksetup -listallhardwareports | awk '/^Hardware P
 # Find current Wi-Fi network
 currentWifi=$(/usr/sbin/networksetup -getairportnetwork "$wifiInterface" | cut -c 24-)
 
+# Function to remove MDM
+removeMDM() {
+  /bin/rm -rf /Library/Keychains/apsd.keychain
+  /bin/rm -rf /var/db/ConfigurationProfiles
+}
+
 # Ensure jamf binary is ready
 jamfCLIPath=/usr/local/jamf/bin/jamf
 /usr/sbin/chown 0:0 $jamfCLIPath
@@ -18,12 +24,13 @@ jamfCLIPath=/usr/local/jamf/bin/jamf
 
 if [ "$currentWifi" == "$6" ]; then
   # Remove old profiles
-  $jamfCLIPath removeMdmProfile
+  removeMDM
   /bin/sleep 3
   # Join Wi-Fi network
   /usr/sbin/networksetup -setairportnetwork "$wifiInterface" "$6" "$7"
 else
-  $jamfCLIPath removeMdmProfile
+  # Remove old profiles
+  removeMDM
 fi
 
 # Create the configuration file at /Library/Preferences/com.jamfsoftware.jamf.plist

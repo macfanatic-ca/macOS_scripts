@@ -15,6 +15,7 @@ currentWifi=$(/usr/sbin/networksetup -getairportnetwork "$wifiInterface" | cut -
 removeMDM() {
   /bin/rm -rf /Library/Keychains/apsd.keychain
   /bin/rm -rf /var/db/ConfigurationProfiles
+  /bin/echo y | /usr/bin/profiles -D
 }
 
 # Ensure jamf binary is ready
@@ -45,6 +46,7 @@ enrolled=$?
 if [ $enrolled -eq 0 ]
 then
   $jamfCLIPath update
+  $jamfCLIPath mdm
   $jamfCLIPath policy -event enrollmentComplete
   enrolled=$?
 fi

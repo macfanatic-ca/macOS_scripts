@@ -1,9 +1,9 @@
 #!/bin/bash
 #################### Variables ####################
 # Set $4 to "Quitting Message (Default: All Done!)"
-quitting_message=
+quitting_message=""
 # Set $5 to "Open Self Service (True || False)"
-open_self_service=
+open_self_service=""
 ################## Do Not Modify ##################
 
 # Incase we don't specify anything

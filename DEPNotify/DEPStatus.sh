@@ -1,7 +1,7 @@
 #!/bin/bash
 #################### Variables ####################
 # Set $4 to "Status Update (Default: Installing something)"
-status_update=
+status_update=""
 ################## Do Not Modify ##################
 # Incase we don't specify anything
 if [[ $4 ]]; then

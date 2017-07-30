@@ -8,7 +8,7 @@ Deploy as early in the deployment process as possible.  This will set the stage 
 #### Variables
 ```
 # Set $4 to "DEPNotify Path (Default: /Applications/DEPNotify.app)"
-depnotify_path="/Library/Macfanatic/bin/DEPNotify.app"
+depnotify_path=""
 
 # Set $5 to "Support Link (Default: None)"
 support_link=""

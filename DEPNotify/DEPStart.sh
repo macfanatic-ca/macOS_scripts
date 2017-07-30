@@ -2,7 +2,7 @@
 
 #################### Variables ####################
 # Set $4 to "DEPNotify Path (Default: /Applications/DEPNotify.app)"
-depnotify_path="/Library/Macfanatic/bin/DEPNotify.app"
+depnotify_path=""
 # Set $5 to "Support Link (Default: None)"
 support_link=""
 # Set $6 to "Image Path (Default: None)"

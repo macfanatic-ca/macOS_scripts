@@ -3,7 +3,7 @@
 #################### Variables ####################
 # Set $4 to "DEPNotify Path (Default: /Applications/DEPNotify.app)"
 depnotify_path="/Library/Macfanatic/bin/DEPNotify.app"
-# Set $5 to "Support Link (Default: https://www.apple.com/business/dep/)"
+# Set $5 to "Support Link (Default: None)"
 support_link=""
 # Set $6 to "Image Path (Default: None)"
 image_path=""
@@ -11,7 +11,7 @@ image_path=""
 welcome_message=""
 # Set $8 to "Window Title (Default: Hello!)"
 window_title=""
-# Set $9 to "Intro Status (Default: Beginning automated setup)"
+# Set $9 to "Intro Status (Default: Running automated setup)"
 intro_status=""
 ################## Do Not Modify ##################
 
@@ -27,8 +27,6 @@ fi
 ## Support Link
 if [[ $5 ]]; then
   support_link=$5
-elif [[ -z $support_link ]]; then
-  support_link="https://www.apple.com/business/dep/"
 fi
 ## Image Path
 if [[ $6 ]]; then
@@ -50,7 +48,7 @@ fi
 if [[ $9 ]]; then
   intro_status=$9
 elif [[ -z $intro_status ]]; then
-  intro_status="Beginning automated setup"
+  intro_status="Running automated setup"
 fi
 
 # Backup existing depnotify.log
@@ -59,7 +57,9 @@ if [ -r /var/tmp/depnotify.log ]; then
 fi
 
 # Set the stage
+if [[ $support_link ]]; then
 echo "Command: Help: $support_link" > /var/tmp/depnotify.log
+fi
 if [[ $image_path ]]; then
 echo "Command: Image: $image_path" >> /var/tmp/depnotify.log
 fi

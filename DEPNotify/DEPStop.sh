@@ -1,5 +1,7 @@
 #!/bin/bash
 #################### Variables ####################
+# Unique Launch Agent identifier
+org_identifier="com.depnotify"
 # Set $4 to "Quitting Message (Default: None)"
 quitting_message=""
 # Set $5 to "Open Self Service (Default: False)"
@@ -59,8 +61,7 @@ else
   ## Open Self Service, if desired
   if [[ $open_self_service ]]; then
     open "$self_service_path"
-    exit 0
-  else
-    exit 0
   fi
 fi
+/bin/rm -f /Library/LaunchAgents/$org_identifier.plist
+exit 0

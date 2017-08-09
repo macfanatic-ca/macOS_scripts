@@ -1,6 +1,8 @@
 #!/bin/bash
 
 #################### Variables ####################
+# Unique Launch Agent identifier
+org_identifier="com.depnotify"
 # Set $4 to "DEPNotify Path (Default: /Applications/DEPNotify.app)"
 depnotify_path=""
 # Set $5 to "Support Link (Default: None)"
@@ -17,7 +19,12 @@ intro_status=""
 
 DATE=$(date "+%Y%m%d-%H%M%S")
 
-# Incase we don't specify anything
+# Incase we didn't specify something
+## Launch Agent identifier
+if [[ -z $org_identifier ]]; then
+  echo "Missing Launch Agent identifier"
+  exit 1
+fi
 ## DEPNotify Path
 if [[ $4 ]]; then
   depnotify_path=$4
@@ -51,6 +58,23 @@ elif [[ -z $intro_status ]]; then
   intro_status="Running automated setup"
 fi
 
+# Install Launch Agent
+launch_agent="<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>Label</key>
+	<string>$org_identifier</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/bin/open</string>
+		<string>$depnotify_path</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+</dict>
+</plist>"
+
 # Backup existing depnotify.log
 if [ -r /var/tmp/depnotify.log ]; then
   cp /var/tmp/depnotify.log /var/tmp/depnotify.log.$DATE
@@ -69,7 +93,11 @@ echo "Command: WindowTitle: $window_title" >> /var/tmp/depnotify.log
 # Make sure it's readable
 chmod 644 /var/tmp/depnotify.log
 # Start the process
-open "$depnotify_path"
+echo "$launch_agent" > "/Library/LaunchAgents/$org_identifier.plist"
+uid=$(/usr/bin/stat -f %u /dev/console)
+if [ $uid -gt 500 ]; then
+    /bin/launchctl asuser $uid /bin/launchctl load /Library/LaunchAgents/$org_identifier.plist
+fi
 # Announce new begginings
 echo "Status: $intro_status" >> /var/tmp/depnotify.log
 

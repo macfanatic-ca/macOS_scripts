@@ -7,6 +7,9 @@
 Deploy as early in the deployment process as possible.  This will set the stage for DEPNotify.app and then open the application.
 #### Variables
 ```
+# Unique Launch Agent identifier
+org_identifier="com.depnotify"
+
 # Set $4 to "DEPNotify Path (Default: /Applications/DEPNotify.app)"
 depnotify_path=""
 
@@ -38,6 +41,9 @@ status_update=""
 This will close DEPNotify.app and, optionally, logout or quit with/without a message to the user.  This should should run as late as possible in the deployment process.
 #### Variables
 ```
+# Unique Launch Agent identifier
+org_identifier="com.depnotify"
+
 # Set $4 to "Quitting Message (Default: None)"
 quitting_message=""
 

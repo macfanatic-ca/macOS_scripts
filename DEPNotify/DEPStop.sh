@@ -20,8 +20,6 @@ if [[ $4 ]]; then
 fi
 if [[ $5 ]]; then
   open_self_service=$5
-elif [[ -z $open_self_service ]]; then
-  open_self_service="False"
 fi
 if [[ $6 ]]; then
   self_service_path=$6

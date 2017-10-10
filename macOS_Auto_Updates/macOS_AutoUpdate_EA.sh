@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# locate defaults binary
+defaults=$(which defaults)
+if [ ! -e "$defaults" ]; then
+  echo "defaults binary not found"
+  exit 1
+fi
+
 # com.apple.commerce
 result=$($defaults read /Library/Preferences/com.apple.commerce AutoUpdate)
 if [[ "$result" == 1 ]]; then

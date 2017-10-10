@@ -16,6 +16,8 @@ echo "Enabled AutoUpdateRestartRequired"
 # com.apple.SoftwareUpdate
 $defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticCheckEnabled -bool TRUE
 echo "Enabled AutomaticCheckEnabled"
+$defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool TRUE
+echo "Enabled AutomaticDownload"
 $defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool TRUE
 echo "Enabled CriticalUpdateInstall"
 $defaults write /Library/Preferences/com.apple.SoftwareUpdate ConfigDataInstall -bool TRUE

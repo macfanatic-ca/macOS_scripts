@@ -14,6 +14,7 @@ Deploy these two plists using the **Custom Settings** payload within your MDM.  
 ### Smart Group Criteria
 ( **AutoUpdate** *is not* **Enabled**  
   or **AutomaticCheckEnabled** *is not* **Enabled**  
+  or **AutomaticDownload** *is not* **Enabled**  
   or **AutoUpdateRestartRequired** *is not* **Enabled**  
   or **CriticalUpdateInstall** *is not* **Enabled**  
   or **ConfigDataInstall** *is not* **Enabled** )

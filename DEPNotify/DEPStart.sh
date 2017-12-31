@@ -3,7 +3,7 @@
 #################### Variables ####################
 # Unique Launch Agent identifier
 org_identifier="com.depnotify"
-# Set $4 to "DEPNotify Path (Default: /Applications/DEPNotify.app)"
+# Set $4 to "DEPNotify Path (Default: /Applications/Utilities/DEPNotify.app)"
 depnotify_path=""
 # Set $5 to "Support Link (Default: None)"
 support_link=""
@@ -29,7 +29,7 @@ fi
 if [[ $4 ]]; then
   depnotify_path=$4
 elif [[ -z $depnotify_path ]]; then
-  depnotify_path="/Applications/DEPNotify.app"
+  depnotify_path="/Applications/Utilities/DEPNotify.app"
 fi
 ## Support Link
 if [[ $5 ]]; then
